@@ -12,7 +12,7 @@ const List = () => {
     }, []);
 
     // Validation
-    if (projects.length === 0) return 0;
+    if (projects.length === 0) return <p>No projects. Start creating one.</p>;
 
     return (
         <ul className="listado-proyectos">

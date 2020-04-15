@@ -4,7 +4,7 @@ import projectContext from '../../context/projects/projectContext';
 
 const TaskList = () => {
     const projectsContext = useContext(projectContext);
-    const { project } = projectsContext;
+    const { project, deleteProject } = projectsContext;
 
     if (!project) {
         return <h2>Select a project.</h2>
@@ -37,6 +37,7 @@ const TaskList = () => {
             <button
                 type="button"
                 className="btn btn-eliminar"
+                onClick={() => deleteProject(currentProject.id)}
             >Delete Project &times;
             </button>
         </Fragment>
