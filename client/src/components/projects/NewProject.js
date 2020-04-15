@@ -2,7 +2,7 @@ import React, { Fragment, useState, useContext } from 'react';
 import projectContext from '../../context/projects/projectContext';
 
 const NewProject = () => {
-    // Contexto
+    // Context
     const projectsContext = useContext(projectContext);
     const { form, errorForm, showForm, addProject, showError } = projectsContext;
 
