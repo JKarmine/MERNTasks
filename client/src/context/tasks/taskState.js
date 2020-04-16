@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import TaskContext from './taskContext';
 import TaskReducer from './taskReducer';
 import {
@@ -6,7 +7,9 @@ import {
     ADD_TASK,
     VALIDATE_TASK,
     DELETE_TASK,
-    TASK_STATE
+    TASK_STATE,
+    CURRENT_TASK,
+    UPDATE_TASK
 } from '../../types';
 
 const TaskState = (props) => {
@@ -27,7 +30,8 @@ const TaskState = (props) => {
             { id: 13, name: 'Elegir IDE', state: true, projectId: 3 },
         ],
         projectTasks: null,
-        taskError: false
+        taskError: false,
+        selectedTask: null
     };
 
     // create dispatch
@@ -44,6 +48,7 @@ const TaskState = (props) => {
     };
 
     const addTask = task => {
+        task.id = uuidv4();
         dispatch({
             type: ADD_TASK,
             payload: task
@@ -70,17 +75,34 @@ const TaskState = (props) => {
         });
     };
 
+    const saveCurrentTask = task => {
+        dispatch({
+            type: CURRENT_TASK,
+            payload: task
+        });
+    };
+
+    const updateTask = task => {
+        dispatch({
+            type: UPDATE_TASK,
+            payload: task
+        });
+    };
+
     return(
         <TaskContext.Provider
             value={{
                 tasks: state.tasks,
                 projectTasks: state.projectTasks,
                 taskError: state.taskError,
+                selectedTask: state.selectedTask,
                 getTasks,
                 addTask,
                 validateTask,
                 deleteTask,
-                changeTaskState
+                changeTaskState,
+                saveCurrentTask,
+                updateTask
             }}
         >
             {props.children}

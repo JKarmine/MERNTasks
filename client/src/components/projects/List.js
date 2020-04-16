@@ -10,6 +10,7 @@ const List = () => {
 
     useEffect(() => {
         getProjects();
+        //eslint-disable-next-line
     }, []);
 
     // Validation

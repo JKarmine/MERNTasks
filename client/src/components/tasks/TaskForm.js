@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import projectContext from '../../context/projects/projectContext';
 import taskContext from '../../context/tasks/taskContext';
 
@@ -7,13 +7,24 @@ const TaskForm = () => {
     const { project } = projectsContext;
 
     const tasksContext = useContext(taskContext);
-    const { addTask, taskError, getTasks, validateTask } = tasksContext;
+    const { addTask, taskError, selectedTask, getTasks, validateTask, updateTask } = tasksContext;
 
     const [task, setTask] = useState({
         name: ''
     });
 
     const { name } = task;
+
+    // useEffect to detect the selected task
+    useEffect(() => {
+        if (selectedTask) {
+            setTask(selectedTask);
+        } else {
+            setTask({
+                name: ''
+            });
+        }
+    }, [selectedTask]);
 
     if (!project) return null;
 
@@ -35,13 +46,17 @@ const TaskForm = () => {
             return;
         }
 
-        // Add the new task to task state
-        task.projectId = currentProject.id;
-        task.state = false;
-        addTask(task);
+        if (selectedTask) {
+            // Update existing task
+            updateTask(task);
+        } else {
+            // Add the new task to task state
+            task.projectId = currentProject.id;
+            task.state = false;
+            addTask(task);
+        }
 
         // Get current proyect tasks
-
         getTasks(currentProject.id);
 
         // Reset form
@@ -67,7 +82,7 @@ const TaskForm = () => {
                     <input
                         type="submit"
                         className="btn btn-primario btn-submit btn-block"
-                        value="Add Task"
+                        value={selectedTask ? "Edit Task" : "Add Task"}
                     />
                 </div>
             </form>
