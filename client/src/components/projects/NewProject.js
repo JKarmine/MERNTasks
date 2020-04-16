@@ -66,7 +66,7 @@ const NewProject = () => {
                     value="Add Project"
                 />
             </form> }
-        { errorForm && <p className="mensaje error">El nombre del proyecto es obligatorio.</p> }
+        { errorForm && <p className="mensaje error">Project name is required.</p> }
         </Fragment>
     );
 }

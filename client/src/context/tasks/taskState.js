@@ -3,7 +3,8 @@ import TaskContext from './taskContext';
 import TaskReducer from './taskReducer';
 import {
     TASKS_PROJECT,
-    ADD_TASK
+    ADD_TASK,
+    VALIDATE_TASK
 } from '../../types';
 
 const TaskState = (props) => {
@@ -23,7 +24,8 @@ const TaskState = (props) => {
             { name: 'Elegir base de datos', state: false, projectId: 4 },
             { name: 'Elegir IDE', state: true, projectId: 3 },
         ],
-        projectTasks: null
+        projectTasks: null,
+        taskError: false
     };
 
     // create dispatch
@@ -46,13 +48,21 @@ const TaskState = (props) => {
         })
     };
 
+    const validateTask = () => {
+        dispatch({
+            type: VALIDATE_TASK
+        });
+    }
+
     return(
         <TaskContext.Provider
             value={{
                 tasks: state.tasks,
                 projectTasks: state.projectTasks,
+                taskError: state.taskError,
                 getTasks,
-                addTask
+                addTask,
+                validateTask
             }}
         >
             {props.children}
