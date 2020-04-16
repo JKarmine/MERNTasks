@@ -9,9 +9,21 @@ const TaskForm = () => {
 
     const [currentProject] = project;
 
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        // Validation
+
+        // Pass validation
+
+        // Add the new task to task state
+
+        // Reset form
+    };
+
     return (
         <div className="formulario">
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="contenedor-input">
                     <input
                         type="text"
