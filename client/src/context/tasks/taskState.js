@@ -4,25 +4,26 @@ import TaskReducer from './taskReducer';
 import {
     TASKS_PROJECT,
     ADD_TASK,
-    VALIDATE_TASK
+    VALIDATE_TASK,
+    DELETE_TASK
 } from '../../types';
 
 const TaskState = (props) => {
     const initialState = {
         tasks: [
-            { name: 'Elegir plataforma', state: true, projectId: 1 },
-            { name: 'Elegir colores', state: false, projectId: 2 },
-            { name: 'Elegir formas de pago', state: true, projectId: 3 },
-            { name: 'Elegir hosting', state: false, projectId: 4 },
-            { name: 'Elegir framework', state: true, projectId: 1 },
-            { name: 'Elegir libreria', state: false, projectId: 2 },
-            { name: 'Elegir balanceador de carga', state: true, projectId: 3 },
-            { name: 'Elegir servidor', state: true, projectId: 4 },
-            { name: 'Elegir logo', state: false, projectId: 2 },
-            { name: 'Elegir puestos', state: true, projectId: 1 },
-            { name: 'Elegir presupuesto', state: true, projectId: 3 },
-            { name: 'Elegir base de datos', state: false, projectId: 4 },
-            { name: 'Elegir IDE', state: true, projectId: 3 },
+            { id: 1, name: 'Elegir plataforma', state: true, projectId: 1 },
+            { id: 2, name: 'Elegir colores', state: false, projectId: 2 },
+            { id: 3, name: 'Elegir formas de pago', state: true, projectId: 3 },
+            { id: 4, name: 'Elegir hosting', state: false, projectId: 4 },
+            { id: 5, name: 'Elegir framework', state: true, projectId: 1 },
+            { id: 6, name: 'Elegir libreria', state: false, projectId: 2 },
+            { id: 7, name: 'Elegir balanceador de carga', state: true, projectId: 3 },
+            { id: 8, name: 'Elegir servidor', state: true, projectId: 4 },
+            { id: 9, name: 'Elegir logo', state: false, projectId: 2 },
+            { id: 10, name: 'Elegir puestos', state: true, projectId: 1 },
+            { id: 11, name: 'Elegir presupuesto', state: true, projectId: 3 },
+            { id: 12, name: 'Elegir base de datos', state: false, projectId: 4 },
+            { id: 13, name: 'Elegir IDE', state: true, projectId: 3 },
         ],
         projectTasks: null,
         taskError: false
@@ -45,14 +46,21 @@ const TaskState = (props) => {
         dispatch({
             type: ADD_TASK,
             payload: task
-        })
+        });
     };
 
     const validateTask = () => {
         dispatch({
             type: VALIDATE_TASK
         });
-    }
+    };
+
+    const deleteTask = id => {
+        dispatch({
+            type: DELETE_TASK,
+            payload: id
+        });
+    };
 
     return(
         <TaskContext.Provider
@@ -62,7 +70,8 @@ const TaskState = (props) => {
                 taskError: state.taskError,
                 getTasks,
                 addTask,
-                validateTask
+                validateTask,
+                deleteTask
             }}
         >
             {props.children}
