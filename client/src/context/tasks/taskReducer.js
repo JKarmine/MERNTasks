@@ -15,7 +15,7 @@ export default (state, action) => {
         case ADD_TASK:
             return {
                 ...state,
-                tasks: [...state.tasks, action.payload],
+                tasks: [action.payload, ...state.tasks],
                 taskError: false
             }
         case VALIDATE_TASK:
