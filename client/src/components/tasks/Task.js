@@ -7,7 +7,7 @@ const Task = ({ task }) => {
     const { project } = projectsContext;
 
     const tasksContext = useContext(taskContext);
-    const { getTasks, deleteTask } = tasksContext;
+    const { getTasks, deleteTask, changeTaskState } = tasksContext;
 
     const [currentProject] = project;
 
@@ -17,14 +17,20 @@ const Task = ({ task }) => {
         getTasks(currentProject.id);
     };
 
+    // Function to change task state
+    const changeState = task => {
+        task.state = !task.state;
+        changeTaskState(task);
+    };
+
     return (
         <li className="tarea sombra">
             <p>{task.name}</p>
 
             <div className="estado">
                 { task.state
-                ? <button type="button" className="completo">Completo</button>
-                : <button type="button" className="incompleto">Incompleto</button>
+                ? <button type="button" className="completo" onClick={() => changeState(task)}>Completo</button>
+                : <button type="button" className="incompleto" onClick={() => changeState(task)}>Incompleto</button>
                 }
             </div>
 
