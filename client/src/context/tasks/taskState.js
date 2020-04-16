@@ -12,16 +12,17 @@ const TaskState = (props) => {
             { name: 'Elegir colores', state: false, projectId: 2 },
             { name: 'Elegir formas de pago', state: true, projectId: 3 },
             { name: 'Elegir hosting', state: false, projectId: 4 },
-            { name: 'Elegir plataforma', state: true, projectId: 1 },
-            { name: 'Elegir colores', state: false, projectId: 2 },
-            { name: 'Elegir formas de pago', state: true, projectId: 3 },
-            { name: 'Elegir plataforma', state: true, projectId: 4 },
-            { name: 'Elegir colores', state: false, projectId: 2 },
-            { name: 'Elegir formas de pago', state: true, projectId: 1 },
-            { name: 'Elegir plataforma', state: true, projectId: 3 },
-            { name: 'Elegir colores', state: false, projectId: 4 },
-            { name: 'Elegir formas de pago', state: true, projectId: 3 },
-        ]
+            { name: 'Elegir framework', state: true, projectId: 1 },
+            { name: 'Elegir libreria', state: false, projectId: 2 },
+            { name: 'Elegir balanceador de carga', state: true, projectId: 3 },
+            { name: 'Elegir servidor', state: true, projectId: 4 },
+            { name: 'Elegir logo', state: false, projectId: 2 },
+            { name: 'Elegir puestos', state: true, projectId: 1 },
+            { name: 'Elegir presupuesto', state: true, projectId: 3 },
+            { name: 'Elegir base de datos', state: false, projectId: 4 },
+            { name: 'Elegir IDE', state: true, projectId: 3 },
+        ],
+        projectTasks: null
     };
 
     // create dispatch
@@ -41,6 +42,7 @@ const TaskState = (props) => {
         <TaskContext.Provider
             value={{
                 tasks: state.tasks,
+                projectTasks: state.projectTasks,
                 getTasks
             }}
         >
