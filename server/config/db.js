@@ -3,6 +3,7 @@ require('dotenv').config();
 
 const connectDB = async () => {
     try {
+        await mongoose.set('useCreateIndex', true);
         await mongoose.connect(process.env.DB_MONGO, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
