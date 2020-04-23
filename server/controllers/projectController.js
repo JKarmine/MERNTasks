@@ -73,3 +73,28 @@ exports.updateProject = async (req, res) => {
         res.status(500).send('Error en el servidor.');
     }
 }
+
+exports.deleteProject = async (req, res) => {
+    try {
+        // Check ID
+        let project = await Project.findById(req.params.id);
+
+        // If project exists
+        if (!project) {
+            return res.status(404).json({ msg: 'Project not found' });
+        }
+
+        // Verify project creator
+        if (project.creator.toString() !== req.user) {
+            return res.status(401).json({ msg: 'Not Allowed' });
+        }
+
+        // Delete project
+        await Project.findOneAndRemove({ _id: req.params.id });
+        res.json({ msg: "Project Deleted" });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Error en el servidor.');
+    }
+}
