@@ -6,8 +6,7 @@ exports.createProject = async (req, res) => {
         const project = new Project(req.body);
 
         // Save creator through JWT
-        project.creator = req.user.id;
-        console.log(project);
+        project.creator = req.user;
 
         // Save project
         project.save();

@@ -26,16 +26,16 @@ exports.createUser = async (req, res) => {
         const salt = await bcryptjs.genSalt(10);
         user.password = await bcryptjs.hash(password, salt);
 
-        await user.save();
+        user = await user.save();
 
         const payload = {
             user: {
-                id: user.id
+                id: user._id
             }
         };
 
         jwt.sign(payload, process.env.SECRET, {
-            expiresIn: 3600 // 1 hour
+            expiresIn: '1d' // 1 day
         }, (error, token) => {
             if (error) throw error;
 
