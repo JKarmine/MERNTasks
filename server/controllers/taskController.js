@@ -40,7 +40,6 @@ exports.createTask = async (req, res) => {
 exports.getTasks = async (req, res) => {
     try {
         // Verify if project exists
-        console.log(req.body);
         const { project } = req.body;
 
         const projectExists = await Project.findById(project);
@@ -56,6 +55,42 @@ exports.getTasks = async (req, res) => {
         // Get tasks
         const tasks = await Task.find({ project });
         res.json({ tasks });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Error');
+    }
+}
+
+exports.updateTask = async (req, res) => {
+    try {
+        // Verify if project exists
+        const { project, name, state } = req.body;
+
+        // If task exists
+        let task = await Task.findById(req.params.id);
+
+        if(!task) {
+            return res.status(404).json({ msg: 'Task not found' });
+        }
+
+        // Extract project
+        const projectExists = await Project.findById(project);
+
+        // Verify project creator
+        if (projectExists.creator.toString() !== req.user) {
+            return res.status(401).json({ msg: 'Not Allowed' });
+        }
+
+        // Create object with the new info
+        const newTask = {};
+
+        if (name) newTask.name = name;
+        if (state) newTask.state = state;
+        
+        // Save task
+        task = await Task.findOneAndUpdate({ _id: req.params.id }, newTask, { new: true });
+
+        res.json({ task });
     } catch (error) {
         console.log(error);
         res.status(500).send('Error');
