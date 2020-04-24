@@ -26,18 +26,17 @@ exports.authUser = async (req, res) => {
 
         const payload = {
             user: {
-                id: user.id
+                id: user._id
             }
         };
 
         jwt.sign(payload, process.env.SECRET, {
-            expiresIn: 3600 // 1 hour
+            expiresIn: '1d' // 1 day
         }, (error, token) => {
             if (error) throw error;
 
             res.json({ token });
         });
-
     } catch (error) {
         console.log(error);
     }
