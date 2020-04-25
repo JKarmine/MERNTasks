@@ -28,6 +28,18 @@ const Register = () => {
         // Validation
         if(name.trim() === '' || email.trim() === '' || password.trim() === '' || confirm.trim() === '') {
             showAlert('All fields are required', 'alerta-error');
+            return;
+        }
+
+        // Password with 6 characters min
+        if(password.length < 6) {
+            showAlert('Password must have at least six characters', 'alerta-error');
+            return;
+        }
+
+        // Two passwords must be the same
+        if (password !== confirm) {
+            showAlert('The passwords must be the same', 'alerta-error');
         }
 
         // Pass to action
