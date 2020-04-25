@@ -1,15 +1,19 @@
-import React, { useState }  from 'react';
+import React, { useState, useContext }  from 'react';
 import { Link } from 'react-router-dom';
+import AlertContext from '../../context/alerts/alertContext';
 
 const Register = () => {
+    const alertContext = useContext(AlertContext);
+    const { alert, showAlert } = alertContext;
+
     const [user, setUser] = useState({
         name: '',
         email: '',
         password: '',
-        confirmar: ''
+        confirmr: ''
     });
 
-    const { name, email, password, confirmar } = user;
+    const { name, email, password, confirm } = user;
 
     const handleChange = e => {
         setUser({
@@ -22,6 +26,9 @@ const Register = () => {
         e.preventDefault();
 
         // Validation
+        if(name.trim() === '' || email.trim() === '' || password.trim() === '' || confirm.trim() === '') {
+            showAlert('All fields are required', 'alerta-error');
+        }
 
         // Pass to action
 
@@ -29,6 +36,7 @@ const Register = () => {
 
     return (
         <div className="form-usuario">
+            { alert && <div className={`alerta ${alert.category}`}>{alert.msg}</div> }
             <div className="contenedor-form sombra-dark">
                 <h1>Create account</h1>
 
@@ -67,13 +75,13 @@ const Register = () => {
                         />
                     </div>
                     <div className="campo-form">
-                        <label htmlFor="confirmar">Confirm password</label>
+                        <label htmlFor="confirm">Confirm password</label>
                         <input
                             type="password"
                             id="confirm"
                             name="confirm"
                             placeholder="Confirm password"
-                            value={confirmar}
+                            value={confirm}
                             onChange={handleChange}
                         />
                     </div>
