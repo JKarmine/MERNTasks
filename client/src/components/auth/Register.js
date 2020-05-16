@@ -1,14 +1,25 @@
-import React, { useState, useContext }  from 'react';
+import React, { useState, useContext, useEffect }  from 'react';
 import { Link } from 'react-router-dom';
 import AlertContext from '../../context/alerts/alertContext';
 import AuthContext from '../../context/auth/authContext';
 
-const Register = () => {
+const Register = (props) => {
     const alertContext = useContext(AlertContext);
     const { alert, showAlert } = alertContext;
 
     const authContext = useContext(AuthContext);
-    const { registerUser } = authContext;
+    const { message, auth, registerUser } = authContext;
+
+    // If user auths or user duplicated
+    useEffect(() => {
+        if (auth) {
+            props.history.push('/projects');
+        }
+
+        if (message) {
+            showAlert(message.msg, message.category);
+        }
+    }, [message, auth, props.history]);
 
     const [user, setUser] = useState({
         name: '',
