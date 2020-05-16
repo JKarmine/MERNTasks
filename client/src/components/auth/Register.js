@@ -1,16 +1,20 @@
 import React, { useState, useContext }  from 'react';
 import { Link } from 'react-router-dom';
 import AlertContext from '../../context/alerts/alertContext';
+import AuthContext from '../../context/auth/authContext';
 
 const Register = () => {
     const alertContext = useContext(AlertContext);
     const { alert, showAlert } = alertContext;
 
+    const authContext = useContext(AuthContext);
+    const { registerUser } = authContext;
+
     const [user, setUser] = useState({
         name: '',
         email: '',
         password: '',
-        confirmr: ''
+        confirm: ''
     });
 
     const { name, email, password, confirm } = user;
@@ -43,7 +47,11 @@ const Register = () => {
         }
 
         // Pass to action
-
+        registerUser({
+            name,
+            email,
+            password
+        });
     };
 
     return (
