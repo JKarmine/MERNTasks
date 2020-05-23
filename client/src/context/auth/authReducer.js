@@ -16,6 +16,11 @@ export default (state, action) => {
                 auth: true,
                 message: null
             }
+        case GET_USER:
+            return {
+                ...state,
+                user: action.payload.user
+            }
         case LOGIN_ERROR:
         case REGISTER_ERROR:
             localStorage.removeItem('token');
