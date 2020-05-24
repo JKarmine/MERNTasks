@@ -6,10 +6,6 @@ const verify = require('../middleware/auth');
 
 // api/auth
 router.post('/',
-    [
-        check('email', 'Use a valid email').isEmail(),
-        check('password', 'Password must have at least 6 characters').isLength({ min: 6 })
-    ],
     authController.authUser
 );
 
