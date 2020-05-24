@@ -1,7 +1,26 @@
-import React, { useState }  from 'react';
+import React, { useState, useContext, useEffect }  from 'react';
 import { Link } from 'react-router-dom';
+import AlertContext from '../../context/alerts/alertContext';
+import AuthContext from '../../context/auth/authContext';
 
-const Login = () => {
+const Login = (props) => {
+    const alertContext = useContext(AlertContext);
+    const { alert, showAlert } = alertContext;
+
+    const authContext = useContext(AuthContext);
+    const { message, auth, loginUser } = authContext;
+
+    // If user auths or user doesn't exits
+    useEffect(() => {
+        if (auth) {
+            props.history.push('/projects');
+        }
+
+        if (message) {
+            showAlert(message.msg, message.category);
+        }
+    }, [message, auth, props.history]);
+
     const [user, setUser] = useState({
         email: '',
         password: ''
@@ -19,14 +38,19 @@ const Login = () => {
     const handleSubmit = e => {
         e.preventDefault();
 
-        // Validation
+        // Validation empty spaces
+        if (email.trim() === '' || password.trim() === '') {
+            showAlert('All fields are required', 'alerta-error');
+            return;
+        }
 
         // Pass to action
-
+        loginUser({ email, password });
     };
 
     return (
         <div className="form-usuario">
+            { alert && <div className={`alerta ${alert.category}`}>{alert.msg}</div> }
             <div className="contenedor-form sombra-dark">
                 <h1>Log in</h1>
 
