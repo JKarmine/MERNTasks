@@ -5,7 +5,7 @@ const Bar = () => {
 
     // Get auth info
     const authContext = useContext(AuthContext);
-    const { user, userAuth } = authContext;
+    const { user, userAuth, logoutUser } = authContext;
 
     useEffect(() => {
         userAuth();
@@ -16,7 +16,10 @@ const Bar = () => {
             { user && <p className="nombre-usuario">Hello, <span>{user.name}</span></p>}
 
             <nav className="nav-principal">
-                <a href="#!">Log out</a>
+                <button
+                    className="btn btn-blank cerrar-sesion"
+                    onClick={() => logoutUser()}
+                >Cerrar Sesión</button>
             </nav>
         </header>
     );
