@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import projectContext from './projectContext';
 import projectReducer from './projectReducer';
 import {
@@ -10,6 +9,7 @@ import {
     CURRENT_PROJECT,
     DELETE_PROJECT
 } from '../../types';
+import axiosClient from '../../config/axios';
 
 const ProjectState = (props) => {
     const projects = [
@@ -44,12 +44,18 @@ const ProjectState = (props) => {
         });
     };
 
-    const addProject = project => {
-        project.id = uuidv4();
-        dispatch({
-            type: ADD_PROJECT,
-            payload: project
-        });
+    const addProject = async project => {
+        
+        try {
+            const response = await axiosClient.post('/api/projects', project);
+            console.log(response);
+            dispatch({
+                type: ADD_PROJECT,
+                payload: response.data
+            });
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const showError = () => {
