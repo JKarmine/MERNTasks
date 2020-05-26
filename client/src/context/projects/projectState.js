@@ -7,7 +7,8 @@ import {
     ADD_PROJECT,
     VALIDATE_FORM,
     CURRENT_PROJECT,
-    DELETE_PROJECT
+    DELETE_PROJECT,
+    PROJECT_ERROR
 } from '../../types';
 import axiosClient from '../../config/axios';
 
@@ -16,7 +17,8 @@ const ProjectState = (props) => {
         form: false,
         projects: [],
         errorForm: false,
-        project: null
+        project: null,
+        message: null
     };
 
     // Dispatch to execute actions
@@ -39,12 +41,19 @@ const ProjectState = (props) => {
                 payload: response.data.projects
             });
         } catch (error) {
-            console.log(error);
-        }    
+            const alert = {
+                msg: 'A error occurred',
+                category: 'alerta-error'
+            };
+
+            dispatch({
+                type: PROJECT_ERROR,
+                payload: alert
+            });
+        }
     };
 
     const addProject = async project => {
-        
         try {
             const response = await axiosClient.post('/api/projects', project);
 
@@ -53,7 +62,15 @@ const ProjectState = (props) => {
                 payload: response.data
             });
         } catch (error) {
-            console.log(error);
+            const alert = {
+                msg: 'A error occurred',
+                category: 'alerta-error'
+            };
+
+            dispatch({
+                type: PROJECT_ERROR,
+                payload: alert
+            });
         }
     };
 
@@ -79,7 +96,15 @@ const ProjectState = (props) => {
                 payload: projectId
             });
         } catch (error) {
-            console.log(error);
+            const alert = {
+                msg: 'A error occurred',
+                category: 'alerta-error'
+            };
+
+            dispatch({
+                type: PROJECT_ERROR,
+                payload: alert
+            });
         }
     };
 
@@ -90,6 +115,7 @@ const ProjectState = (props) => {
                 projects: state.projects,
                 errorForm: state.errorForm,
                 project: state.project,
+                message: state.message,
                 showForm,
                 getProjects,
                 addProject,
