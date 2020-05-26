@@ -44,7 +44,7 @@ const TaskList = () => {
             <button
                 type="button"
                 className="btn btn-eliminar"
-                onClick={() => deleteProject(currentProject.id)}
+                onClick={() => deleteProject(currentProject._id)}
             >Delete Project &times;
             </button>
         </Fragment>
