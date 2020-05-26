@@ -12,13 +12,6 @@ import {
 import axiosClient from '../../config/axios';
 
 const ProjectState = (props) => {
-    const projects = [
-        { id: 1, name: 'Tienda' },
-        { id: 2, name: 'Intranet' },
-        { id: 3, name: 'Diseño' },
-        { id: 4, name: 'MERN' }
-    ];
-
     const initialState = {
         form: false,
         projects: [],
@@ -37,18 +30,24 @@ const ProjectState = (props) => {
         });
     };
 
-    const getProjects = () => {
-        dispatch({
-            type: GET_PROJECT,
-            payload: projects
-        });
+    const getProjects = async () => {
+        try {
+            const response = await axiosClient.get('/api/projects');
+            
+            dispatch({
+                type: GET_PROJECT,
+                payload: response.data.projects
+            });
+        } catch (error) {
+            console.log(error);
+        }    
     };
 
     const addProject = async project => {
         
         try {
             const response = await axiosClient.post('/api/projects', project);
-            console.log(response);
+
             dispatch({
                 type: ADD_PROJECT,
                 payload: response.data
