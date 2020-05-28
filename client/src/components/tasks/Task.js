@@ -13,8 +13,8 @@ const Task = ({ task }) => {
 
     // Function to delete task
     const taskDelete = id => {
-        deleteTask(id);
-        getTasks(currentProject.id);
+        deleteTask(id, currentProject._id);
+        getTasks(currentProject._id);
     };
 
     // Function to change task state
@@ -41,7 +41,7 @@ const Task = ({ task }) => {
 
             <div className="acciones">
                 <button type="button" className="btn btn-primario" onClick={() => selectTask(task)}>Editar</button>
-                <button type="button" className="btn btn-secundario" onClick={() => taskDelete(task.id)}>Eliminar</button>
+                <button type="button" className="btn btn-secundario" onClick={() => taskDelete(task._id)}>Eliminar</button>
             </div>
         </li>
     );
