@@ -51,13 +51,12 @@ const TaskForm = () => {
             updateTask(task);
         } else {
             // Add the new task to task state
-            task.projectId = currentProject.id;
-            task.state = false;
+            task.project = currentProject._id;
             addTask(task);
         }
 
         // Get current proyect tasks
-        getTasks(currentProject.id);
+        getTasks(currentProject._id);
 
         // Reset form
         setTask({
