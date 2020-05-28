@@ -3,7 +3,6 @@ import {
     ADD_TASK,
     VALIDATE_TASK,
     DELETE_TASK,
-    TASK_STATE,
     CURRENT_TASK,
     UPDATE_TASK
 } from '../../types';
