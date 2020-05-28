@@ -7,7 +7,7 @@ const Task = ({ task }) => {
     const { project } = projectsContext;
 
     const tasksContext = useContext(taskContext);
-    const { getTasks, deleteTask, changeTaskState, saveCurrentTask } = tasksContext;
+    const { getTasks, deleteTask, updateTask, saveCurrentTask } = tasksContext;
 
     const [currentProject] = project;
 
@@ -20,7 +20,7 @@ const Task = ({ task }) => {
     // Function to change task state
     const changeState = task => {
         task.state = !task.state;
-        changeTaskState(task);
+        updateTask(task);
     };
 
     // Add a current task when user wants to edit
