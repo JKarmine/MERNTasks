@@ -13,12 +13,12 @@ export default (state, action) => {
         case TASKS_PROJECT:
             return {
                 ...state,
-                projectTasks: state.projectTasks.filter(task => task.projectId  === action.payload)
+                projectTasks: action.payload
             }
         case ADD_TASK:
             return {
                 ...state,
-                projectTasks: [action.payload, ...state.projectTasks],
+                projectTasks: [...state.projectTasks, action.payload],
                 taskError: false
             }
         case VALIDATE_TASK:
