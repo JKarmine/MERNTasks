@@ -40,7 +40,7 @@ exports.createTask = async (req, res) => {
 exports.getTasks = async (req, res) => {
     try {
         // Verify if project exists
-        const { project } = req.body;
+        const { project } = req.query;
 
         const projectExists = await Project.findById(project);
         if (!projectExists) {
